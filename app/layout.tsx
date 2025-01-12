@@ -13,108 +13,49 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Define metadata for English and French
-const metadata = {
-  en: {
+// Define metadata for English
+export const metadata = {
+  title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
+  description:
+    "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
+  keywords: [
+    "eco-friendly cleaning",
+    "cleaning services Quebec",
+    "bio-based cleaning",
+    "office cleaning",
+    "residential cleaning",
+    "green cleaning solutions",
+    "affordable cleaning services",
+    "Montreal cleaning services",
+    "Quebec City cleaning services",
+    "Laval cleaning services",
+    "Gatineau cleaning services",
+    "Sherbrooke cleaning services",
+    "Longueuil cleaning services",
+  ],
+  openGraph: {
     title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
     description:
       "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
-    keywords: [
-      "eco-friendly cleaning",
-      "cleaning services Quebec",
-      "bio-based cleaning",
-      "office cleaning",
-      "residential cleaning",
-      "green cleaning solutions",
-      "affordable cleaning services",
-      "Montreal cleaning services",
-      "Quebec City cleaning services",
-      "Laval cleaning services",
-      "Gatineau cleaning services",
-      "Sherbrooke cleaning services",
-      "Longueuil cleaning services",
-    ],
-    openGraph: {
-      title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
-      description:
-        "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
-      url: "https://www.elitecleaning.com/en",
-      siteName: "Elite Cleaning",
-      images: [
-        {
-          url: "https://www.elitecleaning.com/images/og-image.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Elite Cleaning - Eco-Friendly Cleaning Services in Quebec",
-        },
-      ],
-      locale: "en_CA",
-      type: "website",
-    },
-    alternates: {
-      canonical: "https://www.elitecleaning.com/en",
-      languages: {
-        fr: "https://www.elitecleaning.com/fr",
+    url: "https://www.elitecleaning.com",
+    siteName: "Elite Cleaning",
+    images: [
+      {
+        url: "https://www.elitecleaning.com/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Elite Cleaning - Eco-Friendly Cleaning Services in Quebec",
       },
-    },
+    ],
+    locale: "en_CA",
+    type: "website",
   },
-  fr: {
-    title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
-    description:
-      "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
-    keywords: [
-      "nettoyage écologique",
-      "services de nettoyage Québec",
-      "nettoyage biosourcé",
-      "nettoyage de bureau",
-      "nettoyage résidentiel",
-      "solutions de nettoyage vertes",
-      "services de nettoyage abordables",
-      "services de nettoyage Montréal",
-      "services de nettoyage Québec",
-      "services de nettoyage Laval",
-      "services de nettoyage Gatineau",
-      "services de nettoyage Sherbrooke",
-      "services de nettoyage Longueuil",
-    ],
-    openGraph: {
-      title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
-      description:
-        "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
-      url: "https://www.elitecleaning.com/fr",
-      siteName: "Elite Cleaning",
-      images: [
-        {
-          url: "https://www.elitecleaning.com/images/og-image.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Elite Cleaning - Services de Nettoyage Écologiques au Québec",
-        },
-      ],
-      locale: "fr_CA",
-      type: "website",
-    },
-    alternates: {
-      canonical: "https://www.elitecleaning.com/fr",
-      languages: {
-        en: "https://www.elitecleaning.com/en",
-      },
-    },
+  alternates: {
+    canonical: "https://www.elitecleaning.com",
   },
 };
 
-// Generate metadata dynamically based on the language
-export async function generateMetadata({ params }: { params: { lang: string } }) {
-  return metadata[params.lang] || metadata.en; // Return metadata based on language
-}
-
-// Define the RootLayout props type
-interface RootLayoutProps {
-  children: ReactNode;
-  params: { lang: string };
-}
-
-export default function RootLayout({ children, params }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -133,7 +74,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
       latitude: "45.5017",
       longitude: "-73.5673",
     },
-    url: `https://www.elitecleaning.com/${params.lang}`,
+    url: "https://www.elitecleaning.com",
     telephone: "+1-438-408-2316",
     priceRange: "$$",
     openingHoursSpecification: [
@@ -158,17 +99,13 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
   };
 
   return (
-    <html lang={params.lang}>
+    <html lang="en">
       <head>
         {/* Add the JSON-LD script to the <head> */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Add hreflang tags for SEO */}
-        <link rel="alternate" hrefLang="en" href="https://www.elitecleaning.com/en" />
-        <link rel="alternate" hrefLang="fr" href="https://www.elitecleaning.com/fr" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.elitecleaning.com" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
