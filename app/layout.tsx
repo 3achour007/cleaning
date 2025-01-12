@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// English Metadata
-export const metadataEn = {
+// Define metadata for English
+const metadataEn = {
   title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
   description:
     "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
@@ -57,8 +57,8 @@ export const metadataEn = {
   },
 };
 
-// French Metadata
-export const metadataFr = {
+// Define metadata for French
+const metadataFr = {
   title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
   description:
     "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
@@ -102,6 +102,11 @@ export const metadataFr = {
   },
 };
 
+// Generate metadata dynamically based on the language
+export async function generateMetadata({ params }: { params: { lang: string } }) {
+  return params.lang === "fr" ? metadataFr : metadataEn;
+}
+
 export default function RootLayout({
   children,
   params: { lang },
@@ -109,8 +114,6 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { lang: string };
 }>) {
-  const metadata = lang === "fr" ? metadataFr : metadataEn;
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -162,7 +165,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {/* Add hreflang tags for SEO */}
-        <link rel="alternate" hrefLang="en" href="https://www.elitecleaning.com" />
+        <link rel="alternate" hrefLang="en" href="https://www.elitecleaning.com/en" />
         <link rel="alternate" hrefLang="fr" href="https://www.elitecleaning.com/fr" />
         <link rel="alternate" hrefLang="x-default" href="https://www.elitecleaning.com" />
       </head>
