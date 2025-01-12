@@ -1,0 +1,420 @@
+"use client"; // Marque ce composant comme un composant client
+
+import { useEffect, useState } from "react";
+import Banner from "./../../compononts/frBanner"; // Importe le composant Banner
+import Link from 'next/link';
+
+export default function Home() {
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // État pour gérer la visibilité du menu
+  const [userCity, setUserCity] = useState<string>("Montréal"); // Ville par défaut
+
+  useEffect(() => {
+    // Définit l'année en cours uniquement côté client
+    setCurrentYear(new Date().getFullYear());
+
+    // Détecte la ville de l'utilisateur en fonction de son adresse IP
+    detectUserCity();
+  }, []);
+
+  const detectUserCity = async () => {
+    try {
+      // Utilise IP-API pour obtenir la ville de l'utilisateur en fonction de son adresse IP
+      const response = await fetch("http://ip-api.com/json/?fields=city");
+      const data = await response.json();
+      if (data.city) {
+        setUserCity(data.city);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la détection de la ville :", error);
+      // Retour à la ville par défaut en cas d'erreur
+      setUserCity("Montréal");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 text-gray-900">
+      {/* En-tête */}
+      <header className="w-full max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center py-4 px-4 sm:px-0">
+        {/* Titre et Bouton du Menu Hamburger (Mobile uniquement) */}
+        <div className="w-full sm:w-auto flex justify-between items-center">
+          <Link href="/">
+            <h1 className="text-2xl font-bold cursor-pointer">Elite Cleaning</h1>
+          </Link>
+
+          {/* Bouton du Menu Hamburger (Mobile uniquement) */}
+          <button
+            className="sm:hidden p-2 focus:outline-none"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        {/* Menu de Navigation */}
+        <nav
+  className={`${isMenuOpen ? "block" : "hidden"} sm:block w-full sm:w-auto mt-4 sm:mt-0`}
+>
+  <ul className="flex flex-col sm:flex-row sm:space-x-4">
+    <li>
+      <a
+        href="/"
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Accueil
+      </a>
+    </li>
+    <li>
+      <a
+        href="#services"
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Services
+      </a>
+    </li>
+    <li>
+      <a
+        href="#about"
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        À Propos
+      </a>
+    </li>
+    <li>
+      <a
+        href="#guarantees"
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Nos Garanties
+      </a>
+    </li>
+    <li>
+      <a
+        href="/contact"
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Contact
+      </a>
+    </li>
+    {/* Language Switcher */}
+    <li className="flex items-center">
+      <a
+        href="/" // Link to the English version
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        English
+      </a>
+      <span className="mx-2 text-gray-400">|</span>
+      <a
+        href="/fr" // Link to the French version
+        className="block py-2 sm:py-0 hover:underline"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Français
+      </a>
+    </li>
+  </ul>
+</nav>
+      </header>
+
+      {/* Bannière */}
+      <Banner />
+
+      {/* Contenu Principal */}
+      <main className="flex-1 w-full text-center">
+        {/* Section Hero */}
+        <section className="py-16 max-w-5xl mx-auto">
+          <h1 className="text-4xl font-extrabold mb-4">
+            Services de Nettoyage Écologiques à {userCity}
+          </h1>
+          <p className="text-lg mb-8">
+            Des services de nettoyage professionnels et abordables adaptés à votre domicile ou bureau à {userCity}. Nous utilisons des produits de nettoyage 100% biosourcés pour un environnement plus sain.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a
+              href="#services"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
+            >
+              Voir Nos Services
+            </a>
+            <a
+              href="/contact"
+              className="px-6 py-3 bg-gray-200 text-gray-900 rounded-lg shadow hover:bg-gray-300"
+            >
+              Nous Contacter
+            </a>
+          </div>
+        </section>
+
+        {/* Section Services */}
+        <section id="services" className="py-16 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">
+            Nos Services de Nettoyage à {userCity}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Nettoyage de Bureau */}
+            <div className="p-6 bg-white rounded-lg shadow text-center">
+              <h3 className="text-xl font-semibold mb-2">
+                Nettoyage de Bureau à {userCity}
+              </h3>
+              <p>
+                Gardez votre espace de travail propre, organisé et professionnel avec nos services de nettoyage de bureau experts.
+              </p>
+            </div>
+
+            {/* Nettoyage de Garage */}
+            <div className="p-6 bg-white rounded-lg shadow text-center">
+              <h3 className="text-xl font-semibold mb-2">
+                Nettoyage de Garage à {userCity}
+              </h3>
+              <p>
+                Transformez votre garage en un espace propre et fonctionnel avec nos solutions de nettoyage de garage approfondies.
+              </p>
+            </div>
+
+            {/* Nettoyage des Espaces Communs */}
+            <div className="p-6 bg-white rounded-lg shadow text-center">
+              <h3 className="text-xl font-semibold mb-2">
+                Nettoyage des Espaces Communs à {userCity}
+              </h3>
+              <p>
+                Assurez-vous que les espaces partagés comme les halls, les couloirs et les escaliers sont impeccables et accueillants.
+              </p>
+            </div>
+
+            {/* Nettoyage Résidentiel */}
+            <div className="p-6 bg-white rounded-lg shadow text-center">
+              <h3 className="text-xl font-semibold mb-2">
+                Nettoyage Résidentiel à {userCity}
+              </h3>
+              <p>
+                Profitez d'un domicile propre et confortable avec nos services de nettoyage résidentiel sur mesure.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section À Propos */}
+        <section
+          id="about"
+          className="py-24 w-[100%] mx-auto bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/images/nature.jpg')", // Chemin vers votre image de fond
+          }}
+        >
+          <div className="px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              À Propos de Nos Services de Nettoyage Écologiques
+            </h2>
+            <div className="text-lg sm:text-xl text-gray-700 space-y-8 text-left mx-auto w-full sm:w-3/4 lg:w-1/2 px-4 sm:px-0">
+              <p>
+                Chez <strong className="text-blue-600">Elite Cleaning</strong>, nous sommes plus qu'une entreprise de nettoyage—nous sommes vos partenaires pour créer un environnement plus propre, plus sain et plus durable. Avec des années d'expérience dans l'industrie, nous avons bâti une réputation pour fournir des <strong>solutions de nettoyage de premier ordre</strong> adaptées aux besoins uniques des domiciles et des entreprises.
+              </p>
+              <p>
+                Ce qui nous distingue, c'est notre engagement à utiliser des <strong className="text-green-600">produits de nettoyage 100% biosourcés</strong>. Contrairement aux produits chimiques traditionnels, nos solutions écologiques sont dérivées d'ingrédients naturels qui sont sûrs pour votre famille, vos animaux de compagnie et la planète. Voici pourquoi choisir des produits bios est important :
+              </p>
+              <ul className="list-disc list-inside space-y-4 pl-6">
+                <li>
+                  <strong>Sécurité pour votre santé :</strong> Nos produits bios sont exempts de produits chimiques agressifs, de toxines et d'allergènes, garantissant un environnement sûr et sain pour tous.
+                </li>
+                <li>
+                  <strong>Écologiques :</strong> En utilisant des ingrédients biodégradables et durables, nous réduisons notre empreinte environnementale et contribuons à un avenir plus vert.
+                </li>
+                <li>
+                  <strong>Efficacité de nettoyage :</strong> Ne vous laissez pas tromper par le mot "naturel"—nos produits bios sont très efficaces pour éliminer la saleté, la crasse et les taches, laissant votre espace impeccable.
+                </li>
+                <li>
+                  <strong>Doux sur les surfaces :</strong> Nos produits sont conçus pour nettoyer en profondeur sans endommager vos meubles, sols ou appareils.
+                </li>
+              </ul>
+              <p>
+                Que vous ayez besoin d'un nettoyage en profondeur ponctuel ou d'un entretien régulier, notre équipe de <strong>professionnels formés</strong> est là pour fournir un service exceptionnel avec une touche personnelle. Nous sommes fiers de notre attention aux détails, de notre fiabilité et de notre dévouement à la satisfaction client.
+              </p>
+              <p>
+                Rejoignez-nous pour avoir un impact positif sur l'environnement tout en profitant d'un espace plus propre et plus sain. <strong className="text-blue-600">Choisissez Elite Cleaning</strong>—où la propreté rencontre la durabilité.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Garanties */}
+        <section id="guarantees" className="py-16 bg-gray-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Pourquoi Choisir Elite Cleaning à {userCity} ?
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Expérience */}
+              <div className="p-6 bg-white rounded-lg shadow text-center">
+                <img
+                  src="/images/expertise.jpg" // Chemin vers votre image
+                  alt="Expertise éprouvée en services de nettoyage"
+                  className="w-full h-48 object-cover mb-4 sm:w-48 sm:h-32"
+                />
+                <h3 className="text-xl font-semibold mb-2">
+                  Expertise Éprouvée
+                </h3>
+                <p>
+                  Avec près d'une décennie d'expérience, nous avons maîtrisé l'art de fournir des services de nettoyage exceptionnels adaptés à vos besoins.
+                </p>
+              </div>
+
+              {/* Qualité de Service */}
+              <div className="p-6 bg-white rounded-lg shadow text-center">
+                <img
+                  src="/images/quality.png" // Chemin vers votre image
+                  alt="Qualité inégalée en services de nettoyage"
+                  className="w-full h-48 object-cover mb-4 sm:w-48 sm:h-32"
+                />
+                <h3 className="text-xl font-semibold mb-2">
+                  Qualité Inégalée
+                </h3>
+                <p>
+                  Nous sommes fiers d'offrir des services de nettoyage de premier ordre qui dépassent les attentes, garantissant que votre espace est impeccable à chaque fois.
+                </p>
+              </div>
+
+              {/* Professionnalisme */}
+              <div className="p-6 bg-white rounded-lg shadow text-center">
+                <img
+                  src="/images/customer.jpeg" // Chemin vers votre image
+                  alt="Approche centrée sur le client en services de nettoyage"
+                  className="w-full h-48 object-cover mb-4 sm:w-48 sm:h-32"
+                />
+                <h3 className="text-xl font-semibold mb-2">
+                  Approche Centrée sur le Client
+                </h3>
+                <p>
+                  Votre satisfaction est notre priorité. Nous écoutons attentivement vos besoins et fournissons des solutions personnalisées qui vous conviennent.
+                </p>
+              </div>
+
+              {/* Polyvalence */}
+              <div className="p-6 bg-white rounded-lg shadow text-center">
+                <img
+                  src="/images/Deep-Cleaning.jpg" // Chemin vers votre image
+                  alt="Solutions de nettoyage complètes"
+                  className="w-full h-48 object-cover mb-4 sm:w-48 sm:h-32"
+                />
+                <h3 className="text-xl font-semibold mb-2">
+                  Solutions Complètes
+                </h3>
+                <p>
+                  Des domiciles aux bureaux et au-delà, nous offrons une large gamme de services de nettoyage pour répondre à chaque besoin.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Contact */}
+        <section id="contact" className="py-16 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">
+            Contactez-nous pour un Nettoyage Écologique à {userCity}
+          </h2>
+          <p className="mb-4">
+            Pour des questions ou pour réserver nos services, veuillez nous appeler ou nous envoyer un email.
+          </p>
+          <p>
+            <strong>Téléphone :</strong> +1 (123) 456-7890
+          </p>
+          <p>
+            <strong>Email :</strong> info@elitecleaning.cleaning
+          </p>
+        </section>
+      </main>
+
+      {/* Pied de Page */}
+      <footer className="w-full py-12 bg-gray-800 text-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Adresse */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Notre Adresse</h4>
+              <p className="text-gray-300">
+                4745 Rue Sainte-Catherine E<br />
+                {userCity}, H1V 1Z3<br />
+                Québec
+              </p>
+            </div>
+
+            {/* Horaires */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Heures d'Ouverture</h4>
+              <p className="text-gray-300">
+                Lundi - Vendredi : 8h00 - 18h00<br />
+                Samedi : 9h00 - 16h00<br />
+                Dimanche : Fermé
+              </p>
+            </div>
+
+            {/* Informations de Contact */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contactez-nous</h4>
+              <p className="text-gray-300">
+                Téléphone : +1 (438) 408-2316<br />
+                Email : info@elitecleaning.cleaning<br />
+              </p>
+            </div>
+
+            {/* Liens Rapides */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Liens Rapides</h4>
+              <ul className="space-y-2">
+                <li>
+                  <a href="#services" className="text-gray-300 hover:text-blue-400">
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a href="#about" className="text-gray-300 hover:text-blue-400">
+                    À Propos
+                  </a>
+                </li>
+                <li>
+                  <a href="/contact" className="text-gray-300 hover:text-blue-400">
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a href="#guarantees" className="text-gray-300 hover:text-blue-400">
+                    Nos Garanties
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Diviseur */}
+          <div className="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p className="text-gray-300">
+              &copy; {new Date().getFullYear()} Elite Cleaning. Tous droits réservés.
+            </p>
+            <p className="text-gray-300 mt-2">
+              Conçu avec ❤️ par Elite Cleaning
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
