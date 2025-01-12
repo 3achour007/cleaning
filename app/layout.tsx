@@ -12,99 +12,98 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Define metadata for English
-const metadataEn = {
-  title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
-  description:
-    "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
-  keywords: [
-    "eco-friendly cleaning",
-    "cleaning services Quebec",
-    "bio-based cleaning",
-    "office cleaning",
-    "residential cleaning",
-    "green cleaning solutions",
-    "affordable cleaning services",
-    "Montreal cleaning services",
-    "Quebec City cleaning services",
-    "Laval cleaning services",
-    "Gatineau cleaning services",
-    "Sherbrooke cleaning services",
-    "Longueuil cleaning services",
-  ],
-  openGraph: {
-    title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
-    description:
-      "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
-    url: "https://www.elitecleaning.com/en", // English URL
-    siteName: "Elite Cleaning",
-    images: [
-      {
-        url: "https://www.elitecleaning.com/images/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Elite Cleaning - Eco-Friendly Cleaning Services in Quebec",
-      },
-    ],
-    locale: "en_CA",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://www.elitecleaning.com/en", // English canonical URL
-    languages: {
-      fr: "https://www.elitecleaning.com/fr", // French alternate URL
-    },
-  },
-};
-
-// Define metadata for French
-const metadataFr = {
-  title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
-  description:
-    "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
-  keywords: [
-    "nettoyage écologique",
-    "services de nettoyage Québec",
-    "nettoyage biosourcé",
-    "nettoyage de bureau",
-    "nettoyage résidentiel",
-    "solutions de nettoyage vertes",
-    "services de nettoyage abordables",
-    "services de nettoyage Montréal",
-    "services de nettoyage Québec",
-    "services de nettoyage Laval",
-    "services de nettoyage Gatineau",
-    "services de nettoyage Sherbrooke",
-    "services de nettoyage Longueuil",
-  ],
-  openGraph: {
-    title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
-    description:
-      "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
-    url: "https://www.elitecleaning.com/fr", // French URL
-    siteName: "Elite Cleaning",
-    images: [
-      {
-        url: "https://www.elitecleaning.com/images/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Elite Cleaning - Services de Nettoyage Écologiques au Québec",
-      },
-    ],
-    locale: "fr_CA",
-    type: "website",
-  },
-  alternates: {
-    canonical: "https://www.elitecleaning.com/fr", // French canonical URL
-    languages: {
-      en: "https://www.elitecleaning.com/en", // English alternate URL
-    },
-  },
-};
-
 // Generate metadata dynamically based on the language
 export async function generateMetadata({ params }: { params: { lang: string } }) {
-  return params.lang === "fr" ? metadataFr : metadataEn;
+  const metadata = {
+    en: {
+      title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
+      description:
+        "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
+      keywords: [
+        "eco-friendly cleaning",
+        "cleaning services Quebec",
+        "bio-based cleaning",
+        "office cleaning",
+        "residential cleaning",
+        "green cleaning solutions",
+        "affordable cleaning services",
+        "Montreal cleaning services",
+        "Quebec City cleaning services",
+        "Laval cleaning services",
+        "Gatineau cleaning services",
+        "Sherbrooke cleaning services",
+        "Longueuil cleaning services",
+      ],
+      openGraph: {
+        title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
+        description:
+          "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
+        url: "https://www.elitecleaning.com/en",
+        siteName: "Elite Cleaning",
+        images: [
+          {
+            url: "https://www.elitecleaning.com/images/og-image.jpg",
+            width: 1200,
+            height: 630,
+            alt: "Elite Cleaning - Eco-Friendly Cleaning Services in Quebec",
+          },
+        ],
+        locale: "en_CA",
+        type: "website",
+      },
+      alternates: {
+        canonical: "https://www.elitecleaning.com/en",
+        languages: {
+          fr: "https://www.elitecleaning.com/fr",
+        },
+      },
+    },
+    fr: {
+      title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
+      description:
+        "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
+      keywords: [
+        "nettoyage écologique",
+        "services de nettoyage Québec",
+        "nettoyage biosourcé",
+        "nettoyage de bureau",
+        "nettoyage résidentiel",
+        "solutions de nettoyage vertes",
+        "services de nettoyage abordables",
+        "services de nettoyage Montréal",
+        "services de nettoyage Québec",
+        "services de nettoyage Laval",
+        "services de nettoyage Gatineau",
+        "services de nettoyage Sherbrooke",
+        "services de nettoyage Longueuil",
+      ],
+      openGraph: {
+        title: "Services de Nettoyage Écologiques au Québec | Elite Cleaning",
+        description:
+          "Services de nettoyage professionnels et abordables au Québec. Nous utilisons des produits de nettoyage 100% biosourcés pour les domiciles et les bureaux. Desservons Montréal, Québec, Laval et plus encore. Réservez dès maintenant pour un espace plus propre et plus sain!",
+        url: "https://www.elitecleaning.com/fr",
+        siteName: "Elite Cleaning",
+        images: [
+          {
+            url: "https://www.elitecleaning.com/images/og-image.jpg",
+            width: 1200,
+            height: 630,
+            alt: "Elite Cleaning - Services de Nettoyage Écologiques au Québec",
+          },
+        ],
+        locale: "fr_CA",
+        type: "website",
+      },
+      alternates: {
+        canonical: "https://www.elitecleaning.com/fr",
+        languages: {
+          en: "https://www.elitecleaning.com/en",
+        },
+      },
+    },
+  };
+
+  return metadata[params.lang] || metadata.en; // Return metadata based on language
 }
 
 export default function RootLayout({
