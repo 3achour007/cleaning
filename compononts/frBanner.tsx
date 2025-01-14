@@ -19,7 +19,7 @@ export default function Banner() {
         <h2 className="text-3xl sm:text-5xl font-bold mb-8">
           Offre Spéciale de Nettoyage !
         </h2>
-        <p className="text-lg sm:text-xl mb-8">
+        <p className="text-lg sm:text-xl mb-8" style={{ textShadow: '2px 2px 8px rgb(14, 11, 156)' }}>
           Obtenez 20% de réduction sur votre premier service de nettoyage.
         </p>
         <a
@@ -31,7 +31,7 @@ export default function Banner() {
           Réservez Maintenant
         </a>
         {/* Numéro de téléphone */}
-        <p className="mt-4 text-lg sm:text-xl">
+        <p className="mt-4 text-lg sm:text-xl" style={{ textShadow: '2px 2px 8px rgb(14, 11, 156)' }}>
           Ou appelez-nous au :{" "}
           <a
             href="tel:+14384082316" // Remplacez par votre numéro de téléphone

@@ -93,8 +93,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     ],
     sameAs: [
       "https://www.facebook.com/elitecleaning",
-      "https://www.instagram.com/elitecleaning",
-      "https://www.linkedin.com/company/elitecleaning",
+      "https://www.instagram.com/elitcleaning/",
+      "https://www.linkedin.com/company/elitcleaning",
     ],
   };
 
@@ -106,6 +106,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+
+        {/* Favicon Links */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
