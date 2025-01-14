@@ -341,6 +341,17 @@ export default function Home() {
             <strong>Email:</strong> info@elitecleaning.cleaning
           </p>
         </section>
+
+        <section className="w-full">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.391986840822!2d-73.5694836844385!3d45.50170297910173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a6a5b5b5b5b%3A0x5b5b5b5b5b5b5b5b!2s4745%20Rue%20Sainte-Catherine%20E%2C%20Montreal%2C%20QC%20H1V%201Z3!5e0!3m2!1sen!2sca!4v1633020000000!5m2!1sen!2sca"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+          ></iframe>
+        </section>
       </main>
 
       {/* Footer */}

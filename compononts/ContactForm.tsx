@@ -71,7 +71,7 @@ export default function ContactForm() {
                 <form onSubmit={handleSubmit} noValidate>
                     {/* Name Field */}
                     <div className="mb-6">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                             Name
                         </label>
                         <input
@@ -88,7 +88,7 @@ export default function ContactForm() {
 
                     {/* Email Field */}
                     <div className="mb-6">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-21 mt-4">
                             Email
                         </label>
                         <input
@@ -105,7 +105,7 @@ export default function ContactForm() {
 
                     {/* Phone Number Field */}
                     <div className="mb-6">
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1 mt-4">
                             Phone Number
                         </label>
                         <input
@@ -122,7 +122,7 @@ export default function ContactForm() {
 
                     {/* Message Field */}
                     <div className="mb-6">
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1 mt-4">
                             Message
                         </label>
                         <textarea

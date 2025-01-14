@@ -92,7 +92,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       },
     ],
     sameAs: [
-      "https://www.facebook.com/elitecleaning",
+      "https://www.facebook.com/profile.php?id=61571700223824&sk=about",
       "https://www.instagram.com/elitcleaning/",
       "https://www.linkedin.com/company/elitcleaning",
     ],
