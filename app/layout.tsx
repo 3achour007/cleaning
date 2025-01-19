@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       longitude: "-73.5673",
     },
     url: "https://ecofriendlyclean.ca",
-    telephone: "+1-438-408-2316",
+    telephone: "+1-438-814-5432",
     priceRange: "$$",
     openingHoursSpecification: [
       {

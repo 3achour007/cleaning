@@ -336,7 +336,7 @@ export default function Home() {
             For inquiries or to book our services, please call or email us.
           </p>
           <p>
-            <strong>Phone:</strong> +1 (123) 456-7890
+            <strong>Phone:</strong> +1 (438) 814-5432
           </p>
           <p>
             <strong>Email:</strong> info@ecofriendlyclean.ca
@@ -383,7 +383,7 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <p className="text-gray-300">
-                Phone: +1 (438) 408-2316<br />
+                Phone: +1 (438) 814-5432<br />
                 Email: info@ecofriendlyclean.ca<br />
               </p>
             </div>

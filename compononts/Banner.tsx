@@ -34,10 +34,10 @@ export default function Banner() {
         <p className="mt-4 text-lg sm:text-xl" style={{ textShadow: '2px 2px 8px rgb(14, 11, 156)' }}>
           Or call us at:{" "}
           <a
-            href="tel:+14384082316" // Replace with your phone number
+            href="tel:+14388145432" // Replace with your phone number
             className="text-blue-300 hover:text-blue-400 underline" 
           >
-            +1 (438) 408-2316
+            +1 (438) 814-5432
           </a>
         </p>
       </div>

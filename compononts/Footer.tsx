@@ -28,7 +28,7 @@ export default function Footer() {
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <p className="text-gray-300">
                 Phone: +1 (438) 408-2316<br />
-                Email: info@elitecleaning.cleaning<br />
+                Email: info@ecofriendlyclean.ca<br />
 
               </p>
             </div>
@@ -67,7 +67,7 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Cleaning Service. All rights reserved.
             </p>
             <p className="text-gray-300 mt-2">
-              Designed with ❤️ by Elitecleaning
+              Designed with ❤️ by Eco Friendly Cleaning
             </p>
           </div>
         </div>
