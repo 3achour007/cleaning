@@ -37,11 +37,11 @@ export const metadata = {
     title: "Eco-Friendly Cleaning Services in Quebec | Elite Cleaning",
     description:
       "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
-    url: "https://www.elitecleaning.com",
+    url: "https://ecofriendlyclean.ca",
     siteName: "Elite Cleaning",
     images: [
       {
-        url: "https://www.elitecleaning.com/images/og-image.jpg",
+        url: "https://ecofriendlyclean.ca/images/logo.jpeg",
         width: 1200,
         height: 630,
         alt: "Elite Cleaning - Eco-Friendly Cleaning Services in Quebec",
@@ -51,7 +51,7 @@ export const metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://www.elitecleaning.com",
+    canonical: "https://ecofriendlyclean.ca",
   },
 };
 
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Elite Cleaning",
-    image: "https://www.elitecleaning.com/images/logo.jpg",
+    image: "https://ecofriendlyclean.ca/images/logo.jpeg",
     address: {
       "@type": "PostalAddress",
       streetAddress: "4745 Rue Sainte-Catherine E",
@@ -74,7 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       latitude: "45.5017",
       longitude: "-73.5673",
     },
-    url: "https://www.elitecleaning.com",
+    url: "https://ecofriendlyclean.ca",
     telephone: "+1-438-408-2316",
     priceRange: "$$",
     openingHoursSpecification: [
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     ],
     sameAs: [
       "https://www.facebook.com/profile.php?id=61571700223824&sk=about",
-      "https://www.instagram.com/elitcleaning/",
+      "https://www.instagram.com/eco_friendly_cleaning_",
       "https://www.linkedin.com/company/elitcleaning",
     ],
   };
