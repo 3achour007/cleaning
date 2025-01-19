@@ -39,7 +39,7 @@ export default function Home() {
         {/* Titre et Bouton du Menu Hamburger (Mobile uniquement) */}
         <div className="w-full sm:w-auto flex justify-between items-center">
           <Link href="/">
-            <h1 className="text-2xl font-bold cursor-pointer">Elite Cleaning</h1>
+            <h1 className="text-2xl font-bold cursor-pointer">Eco Friendly Cleaning</h1>
           </Link>
 
           {/* Bouton du Menu Hamburger (Mobile uniquement) */}
@@ -66,74 +66,74 @@ export default function Home() {
 
         {/* Menu de Navigation */}
         <nav
-  className={`${isMenuOpen ? "block" : "hidden"} sm:block w-full sm:w-auto mt-4 sm:mt-0`}
->
-  <ul className="flex flex-col sm:flex-row sm:space-x-4">
-    <li>
-      <a
-        href="/"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Accueil
-      </a>
-    </li>
-    <li>
-      <a
-        href="#services"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Services
-      </a>
-    </li>
-    <li>
-      <a
-        href="#about"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        À Propos
-      </a>
-    </li>
-    <li>
-      <a
-        href="#guarantees"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Nos Garanties
-      </a>
-    </li>
-    <li>
-      <a
-        href="/contact"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Contact
-      </a>
-    </li>
-    {/* Language Switcher */}
-    <li className="flex items-center">
-      <a
-        href="/" // Link to the English version
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        English
-      </a>
-      <span className="mx-2 text-gray-400">|</span>
-      <a
-        href="/fr" // Link to the French version
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Français
-      </a>
-    </li>
-  </ul>
-</nav>
+          className={`${isMenuOpen ? "block" : "hidden"} sm:block w-full sm:w-auto mt-4 sm:mt-0`}
+        >
+          <ul className="flex flex-col sm:flex-row sm:space-x-4">
+            <li>
+              <a
+                href="/"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Accueil
+              </a>
+            </li>
+            <li>
+              <a
+                href="#services"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a
+                href="#about"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                À Propos
+              </a>
+            </li>
+            <li>
+              <a
+                href="#guarantees"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Nos Garanties
+              </a>
+            </li>
+            <li>
+              <a
+                href="/contact"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </li>
+            {/* Language Switcher */}
+            <li className="flex items-center">
+              <a
+                href="/" // Link to the English version
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                English
+              </a>
+              <span className="mx-2 text-gray-400">|</span>
+              <a
+                href="/fr" // Link to the French version
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Français
+              </a>
+            </li>
+          </ul>
+        </nav>
       </header>
 
       {/* Bannière */}
@@ -147,7 +147,7 @@ export default function Home() {
             Services de Nettoyage Écologiques à {userCity}
           </h1>
           <p className="text-lg mb-8">
-            Des services de nettoyage professionnels et abordables adaptés à votre domicile ou bureau à {userCity}. Nous utilisons des produits de nettoyage 100% biosourcés pour un environnement plus sain.
+            Des services de nettoyage professionnels et abordables adaptés à votre domicile ou bureau à {userCity}. Nous employons exclusivement des produits de nettoyage biosourcés afin de préserver un environnement plus sain.
           </p>
           <div className="flex justify-center space-x-4">
             <a
@@ -227,30 +227,30 @@ export default function Home() {
             </h2>
             <div className="text-lg sm:text-xl text-gray-700 space-y-8 text-left mx-auto w-full sm:w-3/4 lg:w-1/2 px-4 sm:px-0">
               <p>
-                Chez <strong className="text-blue-600">Elite Cleaning</strong>, nous sommes plus qu'une entreprise de nettoyage—nous sommes vos partenaires pour créer un environnement plus propre, plus sain et plus durable. Avec des années d'expérience dans l'industrie, nous avons bâti une réputation pour fournir des <strong>solutions de nettoyage de premier ordre</strong> adaptées aux besoins uniques des domiciles et des entreprises.
+                Nous sommes plus qu'une entreprise de nettoyage chez <strong className="text-blue-600">Eco Friendly Cleaning</strong>, nous sommes vos partenaires pour améliorer la propreté, la santé et la durabilité de l'environnement. Grâce à notre expérience de plusieurs années dans le domaine, nous avons développé une réputation en offrant des <strong>solutions de nettoyage de qualité supérieure</strong> qui répondent aux besoins spécifiques des foyers et des entreprises.
               </p>
               <p>
-                Ce qui nous distingue, c'est notre engagement à utiliser des <strong className="text-green-600">produits de nettoyage 100% biosourcés</strong>. Contrairement aux produits chimiques traditionnels, nos solutions écologiques sont dérivées d'ingrédients naturels qui sont sûrs pour votre famille, vos animaux de compagnie et la planète. Voici pourquoi choisir des produits bios est important :
+                Notre point de distinction réside dans notre dévouement à l'utilisation de produits de nettoyage entièrement biosourcés. À la différence des produits chimiques classiques, nos solutions respectueuses de l'environnement sont provenant d'ingrédients naturels qui garantissent la sécurité de votre famille, de vos animaux de compagnie et de la planète. Il est essentiel de sélectionner des produits biologiques :
               </p>
               <ul className="list-disc list-inside space-y-4 pl-6">
                 <li>
-                  <strong>Sécurité pour votre santé :</strong> Nos produits bios sont exempts de produits chimiques agressifs, de toxines et d'allergènes, garantissant un environnement sûr et sain pour tous.
+                  <strong>Sécurité pour votre bien-être :</strong> Nos produits biologiques ne contiennent aucun produit chimique agressif, toxine ou allergène, assurant ainsi un environnement sécurisé et sain pour tous.
                 </li>
                 <li>
-                  <strong>Écologiques :</strong> En utilisant des ingrédients biodégradables et durables, nous réduisons notre empreinte environnementale et contribuons à un avenir plus vert.
+                  <strong>Environnementales :</strong> En employant des composants biodégradables et durables, nous diminuons notre impact sur l'environnement et participons à un avenir plus respectueux de l'environnement.
                 </li>
                 <li>
-                  <strong>Efficacité de nettoyage :</strong> Ne vous laissez pas tromper par le mot "naturel"—nos produits bios sont très efficaces pour éliminer la saleté, la crasse et les taches, laissant votre espace impeccable.
+                  <strong>La performance de nettoyage est :</strong> N'abandonnez pas le terme "naturel" - nos produits biologiques sont extrêmement efficaces pour éliminer la saleté, la crasse et les taches, rendant votre espace impeccable.
                 </li>
                 <li>
-                  <strong>Doux sur les surfaces :</strong> Nos produits sont conçus pour nettoyer en profondeur sans endommager vos meubles, sols ou appareils.
+                  <strong>Très doux sur les surfaces :</strong> Nos articles sont élaborés pour effectuer un nettoyage approfondi sans causer de dommages à vos meubles, sols ou appareils.
                 </li>
               </ul>
               <p>
-                Que vous ayez besoin d'un nettoyage en profondeur ponctuel ou d'un entretien régulier, notre équipe de <strong>professionnels formés</strong> est là pour fournir un service exceptionnel avec une touche personnelle. Nous sommes fiers de notre attention aux détails, de notre fiabilité et de notre dévouement à la satisfaction client.
+                Que vous souhaitiez effectuer un nettoyage en profondeur occasionnel ou effectuer un entretien régulier, notre équipe de <strong>professionnels qualifiés</strong> est disponible pour vous offrir un service exceptionnel avec une touche personnelle. Notre attention aux détails, notre fiabilité et notre dévouement à la satisfaction des clients nous font être fiers.
               </p>
               <p>
-                Rejoignez-nous pour avoir un impact positif sur l'environnement tout en profitant d'un espace plus propre et plus sain. <strong className="text-blue-600">Choisissez Elite Cleaning</strong>—où la propreté rencontre la durabilité.
+                Venez nous rejoindre afin de contribuer positivement à l'environnement tout en bénéficiant d'un environnement plus propre et plus sain. <strong className="text-blue-600">Sélectionnez le service de nettoyage écologique</strong> - où la propreté se marie avec la durabilité.
               </p>
             </div>
           </div>
@@ -260,7 +260,7 @@ export default function Home() {
         <section id="guarantees" className="py-16 bg-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Pourquoi Choisir Elite Cleaning à {userCity} ?
+              Pourquoi Choisir Eeco Friendly Cleaning à {userCity} ?
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Expérience */}
@@ -289,7 +289,8 @@ export default function Home() {
                   Qualité Inégalée
                 </h3>
                 <p>
-                  Nous sommes fiers d'offrir des services de nettoyage de premier ordre qui dépassent les attentes, garantissant que votre espace est impeccable à chaque fois.
+                Notre fierté réside dans notre capacité à proposer des services de nettoyage de qualité supérieure qui surpassent les attentes, assurant ainsi que votre espace reste impeccable à tout moment.
+
                 </p>
               </div>
 
@@ -319,7 +320,8 @@ export default function Home() {
                   Solutions Complètes
                 </h3>
                 <p>
-                  Des domiciles aux bureaux et au-delà, nous offrons une large gamme de services de nettoyage pour répondre à chaque besoin.
+                De la maison aux bureaux et plus encore, nous proposons une variété de services de nettoyage pour satisfaire toutes les exigences.
+
                 </p>
               </div>
             </div>
@@ -338,7 +340,7 @@ export default function Home() {
             <strong>Téléphone :</strong> +1 (123) 456-7890
           </p>
           <p>
-            <strong>Email :</strong> info@elitecleaning.cleaning
+            <strong>Email :</strong> info@ecofriendlyclean.ca
           </p>
         </section>
         <section className="w-full">
@@ -382,7 +384,7 @@ export default function Home() {
               <h4 className="text-lg font-semibold mb-4">Contactez-nous</h4>
               <p className="text-gray-300">
                 Téléphone : +1 (438) 408-2316<br />
-                Email : info@elitecleaning.cleaning<br />
+                Email : info@ecofriendlyclean.ca<br />
               </p>
             </div>
 
@@ -417,10 +419,10 @@ export default function Home() {
           {/* Diviseur */}
           <div className="border-t border-gray-700 mt-8 pt-8 text-center">
             <p className="text-gray-300">
-              &copy; {new Date().getFullYear()} Elite Cleaning. Tous droits réservés.
+              &copy; {new Date().getFullYear()} Eco Friendly Cleaning. Tous droits réservés.
             </p>
             <p className="text-gray-300 mt-2">
-              Conçu avec ❤️ par Elite Cleaning
+              Conçu avec ❤️ par Eco Friendly Cleaning
             </p>
           </div>
         </div>

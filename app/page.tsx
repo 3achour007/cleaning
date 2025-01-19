@@ -39,7 +39,7 @@ export default function Home() {
         {/* Title and Hamburger Menu Button (Mobile Only) */}
         <div className="w-full sm:w-auto flex justify-between items-center">
           <Link href="/">
-            <h1 className="text-2xl font-bold cursor-pointer">Elite Cleaning</h1>
+            <h1 className="text-2xl font-bold cursor-pointer">Eco Friendly Cleaning</h1>
           </Link>
 
           {/* Hamburger Menu Button (Mobile Only) */}
@@ -66,74 +66,74 @@ export default function Home() {
 
         {/* Navigation Menu */}
         <nav
-  className={`${isMenuOpen ? "block" : "hidden"} sm:block w-full sm:w-auto mt-4 sm:mt-0`}
->
-  <ul className="flex flex-col sm:flex-row sm:space-x-4">
-    <li>
-      <a
-        href="/"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Home
-      </a>
-    </li>
-    <li>
-      <a
-        href="#services"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Services
-      </a>
-    </li>
-    <li>
-      <a
-        href="#about"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        About Us
-      </a>
-    </li>
-    <li>
-      <a
-        href="#guarantees"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Our Guarantees
-      </a>
-    </li>
-    <li>
-      <a
-        href="/contact"
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Contact
-      </a>
-    </li>
-    {/* Language Switcher */}
-    <li className="flex items-center">
-      <a
-        href="/" // Link to the English version
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        English
-      </a>
-      <span className="mx-2 text-gray-400">|</span>
-      <a
-        href="/fr" // Link to the French version
-        className="block py-2 sm:py-0 hover:underline"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Français
-      </a>
-    </li>
-  </ul>
-</nav>
+          className={`${isMenuOpen ? "block" : "hidden"} sm:block w-full sm:w-auto mt-4 sm:mt-0`}
+        >
+          <ul className="flex flex-col sm:flex-row sm:space-x-4">
+            <li>
+              <a
+                href="/"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="#services"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a
+                href="#about"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About Us
+              </a>
+            </li>
+            <li>
+              <a
+                href="#guarantees"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Our Guarantees
+              </a>
+            </li>
+            <li>
+              <a
+                href="/contact"
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </li>
+            {/* Language Switcher */}
+            <li className="flex items-center">
+              <a
+                href="/" // Link to the English version
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                English
+              </a>
+              <span className="mx-2 text-gray-400">|</span>
+              <a
+                href="/fr" // Link to the French version
+                className="block py-2 sm:py-0 hover:underline"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Français
+              </a>
+            </li>
+          </ul>
+        </nav>
       </header>
 
       {/* Banner */}
@@ -227,30 +227,30 @@ export default function Home() {
             </h2>
             <div className="text-lg sm:text-xl text-gray-700 space-y-8 text-left mx-auto w-full sm:w-3/4 lg:w-1/2 px-4 sm:px-0">
               <p>
-                At <strong className="text-blue-600">Elite Cleaning</strong>, we are more than just a cleaning company—we are your partners in creating a cleaner, healthier, and more sustainable environment. With years of experience in the industry, we have built a reputation for delivering <strong>top-notch cleaning solutions</strong> tailored to the unique needs of homes and businesses.
+                We are more than just a cleaning service at <strong className="text-blue-600">Eco Friendly Cleaning</strong>; we are your collaborators in making the world a better, cleaner, and more sustainable place. With years of experience in the field, we have established a solid reputation for providing excellent cleaning solutions that are customized to meet the specific requirements of both households and businesses.
               </p>
               <p>
-                What sets us apart is our commitment to using <strong className="text-green-600">100% bio-based cleaning products</strong>. Unlike traditional cleaning chemicals, our eco-friendly solutions are derived from natural ingredients that are safe for your family, pets, and the planet. Here’s why choosing bio products matters:
+                Our dedication to employing <strong className="text-green-600">100% bio-based cleaning free of chemicals</strong> is what makes us unique. Our environmentally friendly cleaning products, in contrast to conventional ones, are made from natural materials that are safe for the environment, your family, and your pets. This is why selecting bioproducts is important:
               </p>
               <ul className="list-disc list-inside space-y-4 pl-6">
                 <li>
-                  <strong>Safe for Your Health:</strong> Our bio products are free from harsh chemicals, toxins, and allergens, ensuring a safe and healthy environment for everyone.
+                  <strong>It's Safe for Your Health:</strong> Because our bio products are devoid of allergens, toxins, and harsh chemicals, everyone can live in a safe and healthy environment.
                 </li>
                 <li>
-                  <strong>Eco-Friendly:</strong> By using biodegradable and sustainable ingredients, we reduce our environmental footprint and contribute to a greener future.
+                  <strong>Friendly to the Environment:</strong> We lessen our impact on the environment and help create a better future by employing sustainable and biodegradable components.
                 </li>
                 <li>
-                  <strong>Effective Cleaning:</strong> Don’t let the word "natural" fool you—our bio products are highly effective at removing dirt, grime, and stains, leaving your space spotless.
+                  <strong>Cleaning Effectively:</strong> Don't be misled by the term "natural"; our bio solutions are quite good at getting rid of stains, filth, and grime, leaving your area pristine.
                 </li>
                 <li>
-                  <strong>Gentle on Surfaces:</strong> Our products are designed to clean thoroughly without damaging your furniture, floors, or appliances.
+                  <strong>It's Gentle on Surfaces:</strong> Our products are made to clean your appliances, floors, and furniture completely without causing any damage.
                 </li>
               </ul>
               <p>
-                Whether you need a one-time deep clean or regular maintenance, our team of <strong>trained professionals</strong> is here to provide exceptional service with a personal touch. We take pride in our attention to detail, reliability, and dedication to customer satisfaction.
+                Our staff of <strong>trained professionals</strong> is available to offer outstanding service with a personal touch, whether you require routine maintenance or a one-time deep clean. We are proud of our meticulousness, dependability, and commitment to client satisfaction.
               </p>
               <p>
-                Join us in making a positive impact on the environment while enjoying a cleaner, healthier space. <strong className="text-blue-600">Choose Elite Cleaning</strong>—where cleanliness meets sustainability.
+                Come along with us as we improve the environment and enjoy a healthier, cleaner space. <strong className="text-blue-600">Select eco-friendly cleaning</strong>, where sustainability and cleanliness coexist.
               </p>
             </div>
           </div>
@@ -260,7 +260,7 @@ export default function Home() {
         <section id="guarantees" className="py-16 bg-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Why Choose Elite Cleaning in {userCity}?
+              Why Choose Eco Friendly Cleaning in {userCity}?
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Experience */}
@@ -274,7 +274,8 @@ export default function Home() {
                   Proven Expertise
                 </h3>
                 <p>
-                  With nearly a decade of experience, we’ve mastered the art of delivering exceptional cleaning services tailored to your needs.
+                With almost ten years of expertise, we've perfected the art of providing outstanding cleaning services that are customized to meet your demands.
+
                 </p>
               </div>
 
@@ -289,7 +290,7 @@ export default function Home() {
                   Unmatched Quality
                 </h3>
                 <p>
-                  We take pride in offering top-tier cleaning services that exceed expectations, ensuring your space is spotless every time.
+                We take pleasure in providing superior cleaning services that go above and above to leave your place immaculate every time.
                 </p>
               </div>
 
@@ -304,7 +305,7 @@ export default function Home() {
                   Client-Centric Approach
                 </h3>
                 <p>
-                  Your satisfaction is our priority. We listen carefully to your needs and provide customized solutions that work for you.
+                We put your satisfaction first. We pay close attention to your demands and offer tailored solutions that suit you.
                 </p>
               </div>
 
@@ -319,7 +320,7 @@ export default function Home() {
                   Comprehensive Solutions
                 </h3>
                 <p>
-                  From homes to offices and beyond, we offer a wide range of cleaning services to meet every requirement.
+                We provide a broad range of cleaning services to satisfy any need, from homes to workplaces and beyond.
                 </p>
               </div>
             </div>
@@ -338,7 +339,7 @@ export default function Home() {
             <strong>Phone:</strong> +1 (123) 456-7890
           </p>
           <p>
-            <strong>Email:</strong> info@elitecleaning.cleaning
+            <strong>Email:</strong> info@ecofriendlyclean.ca
           </p>
         </section>
 
@@ -383,7 +384,7 @@ export default function Home() {
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <p className="text-gray-300">
                 Phone: +1 (438) 408-2316<br />
-                Email: info@elitecleaning.cleaning<br />
+                Email: info@ecofriendlyclean.ca<br />
               </p>
             </div>
 
@@ -418,10 +419,10 @@ export default function Home() {
           {/* Divider */}
           <div className="border-t border-gray-700 mt-8 pt-8 text-center">
             <p className="text-gray-300">
-              &copy; {new Date().getFullYear()} Elite Cleaning. All rights reserved.
+              &copy; {new Date().getFullYear()} Eco Friendly Cleaning. All rights reserved.
             </p>
             <p className="text-gray-300 mt-2">
-              Designed with ❤️ by Elite Cleaning
+              Designed with ❤️ by Eco Friendly Cleaning
             </p>
           </div>
         </div>

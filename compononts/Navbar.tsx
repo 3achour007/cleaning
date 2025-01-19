@@ -11,7 +11,7 @@ export default function Navbar() {
             {/* Title and Hamburger Menu Button (Mobile Only) */}
             <div className="w-full sm:w-auto flex justify-between items-center">
                 <Link href="/">
-                    <h1 className="text-2xl font-bold cursor-pointer">Elite Cleaning</h1>
+                    <h1 className="text-2xl font-bold cursor-pointer">Eco Friendly Cleaning</h1>
                 </Link>
 
                 {/* Hamburger Menu Button (Mobile Only) */}

@@ -38,7 +38,7 @@ export const metadata = {
     description:
       "Professional and affordable eco-friendly cleaning services in Quebec. We use 100% bio-based cleaning products for homes and offices. Serving Montreal, Quebec City, Laval, and more. Book now for a cleaner, healthier space!",
     url: "https://ecofriendlyclean.ca",
-    siteName: "Elite Cleaning",
+    siteName: "Eco Friendly Cleaning",
     images: [
       {
         url: "https://ecofriendlyclean.ca/images/logo.jpeg",
@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Elite Cleaning",
+    name: "Eco Friendly Cleaning",
     image: "https://ecofriendlyclean.ca/images/logo.jpeg",
     address: {
       "@type": "PostalAddress",
