@@ -305,15 +305,15 @@ const Clients = () => {
         return () => unsubscribe(); // Cleanup subscription
     }, [router]);
 
-    // Handle form input changes
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-
-        // Handle checkboxes
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+    
+        // Handle checkboxes (only for input elements)
         if (type === "checkbox") {
+            const target = e.target as HTMLInputElement; // Narrow down the type
             setNewClient((prev) => ({
                 ...prev,
-                [name]: checked,
+                [name]: target.checked, // Access `checked` safely
             }));
         } else {
             setNewClient((prev) => ({
