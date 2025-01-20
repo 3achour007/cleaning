@@ -1,17 +1,25 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { doc, getDoc, collection, getDocs, addDoc, updateDoc ,deleteDoc} from "firebase/firestore";
-import { FaTrash } from "react-icons/fa"; // Import the trash icon
-import { db, auth } from "@/firebase";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
+import React, { useState, useEffect } from 'react';
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+} from 'firebase/firestore';
+import { FaTrash } from 'react-icons/fa'; // Import the trash icon
+import { db, auth } from '@/firebase';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
 
 // Define the types for Client and Worker
 interface Client {
     id: string;
     name: string;
-    email: string; 
+    email: string;
     phone: string;
     address: string;
     assignedWorkerId: string;
@@ -36,16 +44,18 @@ interface Client {
     status: string;
     title: string;
 }
+
 const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-    const day = String(date.getDate()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
 
     return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
+
 interface Worker {
     id: string;
     name: string;
@@ -53,23 +63,24 @@ interface Worker {
 }
 
 const superficialAreaOptions = [
-    "500-1000 ft²",
-    "1000-1500 ft²",
-    "1500-2000 ft²",
-    "2000-2500 ft²",
-    "2500-3000 ft²",
-    "3000-3500 ft²",
-    "3500-4000 ft²",
-    "4000-4500 ft²",
-    "4500-5000 ft²",
+    '500-1000 ft²',
+    '1000-1500 ft²',
+    '1500-2000 ft²',
+    '2000-2500 ft²',
+    '2500-3000 ft²',
+    '3000-3500 ft²',
+    '3500-4000 ft²',
+    '4000-4500 ft²',
+    '4500-5000 ft²',
 ];
 
 const availableServices = [
-    "Inside the Oven",
-    "Inside the Fridge",
-    "Garage Floor",
-    "Dishes",
+    'Inside the Oven',
+    'Inside the Fridge',
+    'Garage Floor',
+    'Dishes',
 ];
+
 const Clients = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -79,32 +90,32 @@ const Clients = () => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [selectedClient, setSelectedClient] = useState<Client | null>(null);
     const [newClient, setNewClient] = useState<Client>({
-        id: "",
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        assignedWorkerId: "",
-        cleaningType: "",
-        cleaningFrequency: "",
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        assignedWorkerId: '',
+        cleaningType: '',
+        cleaningFrequency: '',
         selectedServices: [],
-        propertyType: "",
-        superficialArea: "",
-        numberOfKitchens: "",
-        numberOfRooms: "",
-        numberOfLivingRooms: "",
-        numberOfBathrooms: "",
+        propertyType: '',
+        superficialArea: '',
+        numberOfKitchens: '',
+        numberOfRooms: '',
+        numberOfLivingRooms: '',
+        numberOfBathrooms: '',
         numberOfWalls: 0,
         numberOfWindows: 0,
         numberOfBalcony: 0,
         laundryLoads: 0,
-        cost: "",
-        createdAt: "",
-        deadline: "",
-        preferredDay: "",
-        priority: "",
-        status: "",
-        title: "",
+        cost: '',
+        createdAt: '',
+        deadline: '',
+        preferredDay: '',
+        priority: '',
+        status: '',
+        title: '',
     });
     const router = useRouter();
 
@@ -121,9 +132,9 @@ const Clients = () => {
         let totalCost = basePrice;
 
         // Add cleaning type extra
-        if (newClient.cleaningType === "Standard Cleaning") {
+        if (newClient.cleaningType === 'Standard Cleaning') {
             totalCost += standardCleaningExtra;
-        } else if (newClient.cleaningType === "Deep Cleaning") {
+        } else if (newClient.cleaningType === 'Deep Cleaning') {
             totalCost += deepCleaningExtra;
         }
 
@@ -133,10 +144,10 @@ const Clients = () => {
         totalCost += (rooms + bathrooms) * roomBathroomExtra;
 
         // Add extras for oven and fridge (if selected)
-        if (newClient.selectedServices.includes("Inside the Oven")) {
+        if (newClient.selectedServices.includes('Inside the Oven')) {
             totalCost += ovenExtra; // $40 for inside the oven
         }
-        if (newClient.selectedServices.includes("Inside the Fridge")) {
+        if (newClient.selectedServices.includes('Inside the Fridge')) {
             totalCost += fridgeExtra; // $40 for inside the fridge
         }
 
@@ -165,10 +176,10 @@ const Clients = () => {
         totalCost += laundryLoads * 10; // $10 per laundry load
 
         // Add extras for selected services (if applicable)
-        if (newClient.selectedServices.includes("Garage Floor")) {
+        if (newClient.selectedServices.includes('Garage Floor')) {
             totalCost += 45; // $45 for garage floor
         }
-        if (newClient.selectedServices.includes("Dishes")) {
+        if (newClient.selectedServices.includes('Dishes')) {
             totalCost += 10; // $10 for dishes
         }
 
@@ -183,9 +194,9 @@ const Clients = () => {
         let totalCost = basePrice;
 
         // Add cleaning type extra
-        if (client.cleaningType === "Standard Cleaning") {
+        if (client.cleaningType === 'Standard Cleaning') {
             totalCost += standardCleaningExtra;
-        } else if (client.cleaningType === "Deep Cleaning") {
+        } else if (client.cleaningType === 'Deep Cleaning') {
             totalCost += deepCleaningExtra;
         }
 
@@ -195,10 +206,10 @@ const Clients = () => {
         totalCost += (rooms + bathrooms) * roomBathroomExtra;
 
         // Add extras for oven and fridge (if selected)
-        if (client.selectedServices.includes("Inside the Oven")) {
+        if (client.selectedServices.includes('Inside the Oven')) {
             totalCost += ovenExtra;
         }
-        if (client.selectedServices.includes("Inside the Fridge")) {
+        if (client.selectedServices.includes('Inside the Fridge')) {
             totalCost += fridgeExtra;
         }
 
@@ -227,20 +238,21 @@ const Clients = () => {
         totalCost += laundryLoads * 10;
 
         // Add extras for selected services (if applicable)
-        if (client.selectedServices.includes("Garage Floor")) {
+        if (client.selectedServices.includes('Garage Floor')) {
             totalCost += 45;
         }
-        if (client.selectedServices.includes("Dishes")) {
+        if (client.selectedServices.includes('Dishes')) {
             totalCost += 10;
         }
 
         return totalCost.toString();
     };
+
     // Recalculate cost whenever relevant fields change
     useEffect(() => {
         if (
-            newClient.propertyType === "Apartment" ||
-            newClient.propertyType === "House"
+            newClient.propertyType === 'Apartment' ||
+            newClient.propertyType === 'House'
         ) {
             calculateCost();
         }
@@ -257,21 +269,21 @@ const Clients = () => {
         newClient.numberOfBalcony, // Add this
         newClient.laundryLoads, // Add this
     ]);
+
     // Check if the current user is an admin and fetch clients and workers
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-
                 try {
                     // Fetch the admin document from Firestore
-                    const adminDocRef = doc(db, "admin", user.uid); // Use the user's UID as the document ID
+                    const adminDocRef = doc(db, 'admin', user.uid); // Use the user's UID as the document ID
                     const adminDoc = await getDoc(adminDocRef);
 
                     if (adminDoc.exists()) {
                         if (adminDoc.data()?.isAdmin) {
                             setIsAdmin(true); // User is an admin
                             // Fetch clients data
-                            const clientsCollectionRef = collection(db, "clients");
+                            const clientsCollectionRef = collection(db, 'clients');
                             const clientsSnapshot = await getDocs(clientsCollectionRef);
                             const clientsData = clientsSnapshot.docs.map((doc) => ({
                                 id: doc.id, // Use Firestore's auto-generated ID
@@ -280,7 +292,7 @@ const Clients = () => {
                             setClients(clientsData); // Store clients data in state
 
                             // Fetch workers data
-                            const workersCollectionRef = collection(db, "workers");
+                            const workersCollectionRef = collection(db, 'workers');
                             const workersSnapshot = await getDocs(workersCollectionRef);
                             const workersData = workersSnapshot.docs.map((doc) => ({
                                 id: doc.id,
@@ -288,16 +300,16 @@ const Clients = () => {
                             })) as Worker[]; // Explicitly cast to Worker[]
                             setWorkers(workersData); // Store workers data in state
                         } else {
-                            router.push("/"); // Redirect non-admin users to the home page
+                            router.push('/'); // Redirect non-admin users to the home page
                         }
                     } else {
-                        router.push("/"); // Redirect if admin document is missing
+                        router.push('/'); // Redirect if admin document is missing
                     }
                 } catch (error) {
-                    router.push("/"); // Redirect on error
+                    router.push('/'); // Redirect on error
                 }
             } else {
-                router.push("/login"); // Redirect unauthenticated users to the login page
+                router.push('/login'); // Redirect unauthenticated users to the login page
             }
             setLoading(false); // Stop loading
         });
@@ -305,11 +317,13 @@ const Clients = () => {
         return () => unsubscribe(); // Cleanup subscription
     }, [router]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
         const { name, value, type } = e.target;
-    
+
         // Handle checkboxes (only for input elements)
-        if (type === "checkbox") {
+        if (type === 'checkbox') {
             const target = e.target as HTMLInputElement; // Narrow down the type
             setNewClient((prev) => ({
                 ...prev,
@@ -329,7 +343,7 @@ const Clients = () => {
 
         try {
             // Add the new client to Firestore
-            const clientsCollectionRef = collection(db, "clients");
+            const clientsCollectionRef = collection(db, 'clients');
 
             // Destructure newClient to exclude the `id` field
             const { id, ...clientData } = newClient;
@@ -339,7 +353,7 @@ const Clients = () => {
                 createdAt: new Date().toISOString(), // Automatically set the creation date
             });
 
-            console.log("Client added with ID:", docRef.id);
+            console.log('Client added with ID:', docRef.id);
 
             // Update the clients list
             setClients((prev) => [
@@ -352,38 +366,38 @@ const Clients = () => {
 
             // Reset the form
             setNewClient({
-                id: "",
-                name: "",
-                email: "",
-                phone: "",
-                address: "",
-                assignedWorkerId: "",
-                cleaningType: "",
-                cleaningFrequency: "",
+                id: '',
+                name: '',
+                email: '',
+                phone: '',
+                address: '',
+                assignedWorkerId: '',
+                cleaningType: '',
+                cleaningFrequency: '',
                 selectedServices: [],
-                propertyType: "",
-                superficialArea: "",
-                numberOfKitchens: "",
-                numberOfRooms: "",
-                numberOfLivingRooms: "",
-                numberOfBathrooms: "",
+                propertyType: '',
+                superficialArea: '',
+                numberOfKitchens: '',
+                numberOfRooms: '',
+                numberOfLivingRooms: '',
+                numberOfBathrooms: '',
                 numberOfWalls: 0,
                 numberOfWindows: 0,
                 numberOfBalcony: 0,
                 laundryLoads: 0,
-                cost: "",
-                createdAt: "",
-                deadline: "",
-                preferredDay: "",
-                priority: "",
-                status: "",
-                title: "",
+                cost: '',
+                createdAt: '',
+                deadline: '',
+                preferredDay: '',
+                priority: '',
+                status: '',
+                title: '',
             });
 
             // Close the form
             setShowAddClientForm(false);
         } catch (error) {
-            console.error("Error adding client:", error);
+            console.error('Error adding client:', error);
         }
     };
 
@@ -400,7 +414,9 @@ const Clients = () => {
     // Render the clients list and add client form
     return (
         <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Clients Section</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                Clients Section
+            </h2>
 
             {/* Add Client Button */}
             <button
@@ -598,69 +614,85 @@ const Clients = () => {
                             </select>
                         </div>
                         {/* Conditionally render fields based on propertyType */}
-                        {newClient.propertyType !== "Commercial" && newClient.propertyType !== "Office" && (
-                            <>
-                                <div className="flex flex-col col-span-2">
-                                    <label className="text-sm text-gray-600 mb-1">Select Services</label>
-                                    <div className="flex flex-col gap-2">
-                                        {[
-                                            "Inside the Oven",
-                                            "Inside the Fridge",
-                                            "Inside Windows (how many windows)",
-                                            "Walls",
-                                            "Balcony / Patio",
-                                            "Garage Floor",
-                                            "Laundry & Drying",
-                                            "Dishes",
-                                        ].map((service) => (
-                                            <label key={service} className="flex items-center gap-2">
-                                                <input
-                                                    type="checkbox"
-                                                    name="selectedServices"
-                                                    value={service}
-                                                    checked={newClient.selectedServices.includes(service)}
-                                                    onChange={(e) => {
-                                                        const { value, checked } = e.target;
-                                                        setNewClient((prev) => ({
-                                                            ...prev,
-                                                            selectedServices: checked
-                                                                ? [...prev.selectedServices, value] // Add to array if checked
-                                                                : prev.selectedServices.filter((item) => item !== value), // Remove if unchecked
-                                                        }));
-                                                    }}
-                                                    className="border border-gray-300 rounded"
-                                                />
-                                                {service}
-                                            </label>
-                                        ))}
+                        {newClient.propertyType !== 'Commercial' &&
+                            newClient.propertyType !== 'Office' && (
+                                <>
+                                    <div className="flex flex-col col-span-2">
+                                        <label className="text-sm text-gray-600 mb-1">
+                                            Select Services
+                                        </label>
+                                        <div className="flex flex-col gap-2">
+                                            {[
+                                                'Inside the Oven',
+                                                'Inside the Fridge',
+                                                'Inside Windows (how many windows)',
+                                                'Walls',
+                                                'Balcony / Patio',
+                                                'Garage Floor',
+                                                'Laundry & Drying',
+                                                'Dishes',
+                                            ].map((service) => (
+                                                <label
+                                                    key={service}
+                                                    className="flex items-center gap-2"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        name="selectedServices"
+                                                        value={service}
+                                                        checked={newClient.selectedServices.includes(
+                                                            service
+                                                        )}
+                                                        onChange={(e) => {
+                                                            const { value, checked } = e.target;
+                                                            setNewClient((prev) => ({
+                                                                ...prev,
+                                                                selectedServices: checked
+                                                                    ? [...prev.selectedServices, value] // Add to array if checked
+                                                                    : prev.selectedServices.filter(
+                                                                        (item) => item !== value
+                                                                    ), // Remove if unchecked
+                                                            }));
+                                                        }}
+                                                        className="border border-gray-300 rounded"
+                                                    />
+                                                    {service}
+                                                </label>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <label className="text-sm text-gray-600 mb-1">Number of Kitchens</label>
-                                    <input
-                                        type="number"
-                                        name="numberOfKitchens"
-                                        value={newClient.numberOfKitchens}
-                                        onChange={handleInputChange}
-                                        className="p-2 border border-gray-300 rounded-lg"
-                                        min="0"
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <label className="text-sm text-gray-600 mb-1">Number of Living Rooms</label>
-                                    <input
-                                        type="number"
-                                        name="numberOfLivingRooms"
-                                        value={newClient.numberOfLivingRooms}
-                                        onChange={handleInputChange}
-                                        className="p-2 border border-gray-300 rounded-lg"
-                                        min="0"
-                                    />
-                                </div>
-                            </>
-                        )}
+                                    <div className="flex flex-col">
+                                        <label className="text-sm text-gray-600 mb-1">
+                                            Number of Kitchens
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="numberOfKitchens"
+                                            value={newClient.numberOfKitchens}
+                                            onChange={handleInputChange}
+                                            className="p-2 border border-gray-300 rounded-lg"
+                                            min="0"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <label className="text-sm text-gray-600 mb-1">
+                                            Number of Living Rooms
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="numberOfLivingRooms"
+                                            value={newClient.numberOfLivingRooms}
+                                            onChange={handleInputChange}
+                                            className="p-2 border border-gray-300 rounded-lg"
+                                            min="0"
+                                        />
+                                    </div>
+                                </>
+                            )}
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600 mb-1">Number of Rooms</label>
+                            <label className="text-sm text-gray-600 mb-1">
+                                Number of Rooms
+                            </label>
                             <input
                                 type="number"
                                 name="numberOfRooms"
@@ -671,7 +703,9 @@ const Clients = () => {
                             />
                         </div>
                         <div className="flex flex-col">
-                            <label className="text-sm text-gray-600 mb-1">Number of Bathrooms</label>
+                            <label className="text-sm text-gray-600 mb-1">
+                                Number of Bathrooms
+                            </label>
                             <input
                                 type="number"
                                 name="numberOfBathrooms"
@@ -682,9 +716,11 @@ const Clients = () => {
                             />
                         </div>
                         {/* Conditionally render fields based on selected services */}
-                        {newClient.selectedServices.includes("Walls") && (
+                        {newClient.selectedServices.includes('Walls') && (
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-600 mb-1">Number of Walls</label>
+                                <label className="text-sm text-gray-600 mb-1">
+                                    Number of Walls
+                                </label>
                                 <input
                                     type="number"
                                     name="numberOfWalls"
@@ -695,22 +731,28 @@ const Clients = () => {
                                 />
                             </div>
                         )}
-                        {newClient.selectedServices.includes("Inside Windows (how many windows)") && (
+                        {newClient.selectedServices.includes(
+                            'Inside Windows (how many windows)'
+                        ) && (
+                                <div className="flex flex-col">
+                                    <label className="text-sm text-gray-600 mb-1">
+                                        Number of Windows
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="numberOfWindows"
+                                        value={newClient.numberOfWindows}
+                                        onChange={handleInputChange}
+                                        className="p-2 border border-gray-300 rounded-lg"
+                                        min="0"
+                                    />
+                                </div>
+                            )}
+                        {newClient.selectedServices.includes('Balcony / Patio') && (
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-600 mb-1">Number of Windows</label>
-                                <input
-                                    type="number"
-                                    name="numberOfWindows"
-                                    value={newClient.numberOfWindows}
-                                    onChange={handleInputChange}
-                                    className="p-2 border border-gray-300 rounded-lg"
-                                    min="0"
-                                />
-                            </div>
-                        )}
-                        {newClient.selectedServices.includes("Balcony / Patio") && (
-                            <div className="flex flex-col">
-                                <label className="text-sm text-gray-600 mb-1">Number of Balcony/Patio</label>
+                                <label className="text-sm text-gray-600 mb-1">
+                                    Number of Balcony/Patio
+                                </label>
                                 <input
                                     type="number"
                                     name="numberOfBalcony"
@@ -721,9 +763,11 @@ const Clients = () => {
                                 />
                             </div>
                         )}
-                        {newClient.selectedServices.includes("Laundry & Drying") && (
+                        {newClient.selectedServices.includes('Laundry & Drying') && (
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-600 mb-1">Laundry & Drying (Number of Loads)</label>
+                                <label className="text-sm text-gray-600 mb-1">
+                                    Laundry & Drying (Number of Loads)
+                                </label>
                                 <input
                                     type="number"
                                     name="laundryLoads"
@@ -775,6 +819,7 @@ const Clients = () => {
             )}
 
             {/* Clients List */}
+            {/* Clients List */}
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
@@ -784,7 +829,7 @@ const Clients = () => {
                             <th className="py-2 px-4 border-b text-center">Assigned Worker</th>
                             <th className="py-2 px-4 border-b text-center">Cost</th>
                             <th className="py-2 px-4 border-b text-center">Created At</th>
-                            <th className="py-2 px-4 border-b text-center">Actions</th> {/* New column for delete button */}
+                            <th className="py-2 px-4 border-b text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -792,11 +837,12 @@ const Clients = () => {
                             <tr
                                 key={client.id}
                                 className="hover:bg-gray-50 cursor-pointer"
+                                onClick={() => setSelectedClient(client)} // Add this line
                             >
                                 <td className="py-2 px-4 border-b text-center">{client.name}</td>
                                 <td className="py-2 px-4 border-b text-center">{client.address}</td>
                                 <td className="py-2 px-4 border-b text-center">
-                                    {workers.find((worker) => worker.id === client.assignedWorkerId)?.name || "N/A"}
+                                    {workers.find((worker) => worker.id === client.assignedWorkerId)?.name || 'N/A'}
                                 </td>
                                 <td className="py-2 px-4 border-b text-center">{client.cost}</td>
                                 <td className="py-2 px-4 border-b text-center">
@@ -804,27 +850,24 @@ const Clients = () => {
                                 </td>
                                 <td className="py-2 px-4 border-b text-center">
                                     <button
-                                        onClick={async () => {
-                                            if (window.confirm("Are you sure you want to delete this client?")) {
+                                        onClick={async (e) => {
+                                            e.stopPropagation(); // Prevent the row click event from firing
+                                            if (window.confirm('Are you sure you want to delete this client?')) {
                                                 try {
-                                                    // Delete the client from Firestore
-                                                    await deleteDoc(doc(db, "clients", client.id));
-
-                                                    // Update the clients list in state
+                                                    await deleteDoc(doc(db, 'clients', client.id));
                                                     setClients((prevClients) =>
                                                         prevClients.filter((c) => c.id !== client.id)
                                                     );
-
-                                                    alert("Client deleted successfully!");
+                                                    alert('Client deleted successfully!');
                                                 } catch (error) {
-                                                    console.error("Error deleting client:", error);
-                                                    alert("Failed to delete client.");
+                                                    console.error('Error deleting client:', error);
+                                                    alert('Failed to delete client.');
                                                 }
                                             }
                                         }}
                                         className="text-red-600 hover:text-red-800"
                                     >
-                                        <FaTrash className="inline-block" /> {/* Trash icon */}
+                                        <FaTrash className="inline-block" />
                                     </button>
                                 </td>
                             </tr>
@@ -832,11 +875,12 @@ const Clients = () => {
                     </tbody>
                 </table>
             </div>
+
             {selectedClient && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full overflow-y-auto max-h-screen">
                         <h2 className="text-xl font-semibold mb-4">
-                            {isEditMode ? "Edit Client" : "Client Details"}
+                            {isEditMode ? 'Edit Client' : 'Client Details'}
                         </h2>
 
                         {/* Edit Button */}
@@ -844,40 +888,44 @@ const Clients = () => {
                             onClick={() => setIsEditMode(!isEditMode)}
                             className="mb-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                         >
-                            {isEditMode ? "Cancel Edit" : "Edit"}
+                            {isEditMode ? 'Cancel Edit' : 'Edit'}
                         </button>
 
                         {/* Client Details or Edit Form */}
                         {isEditMode ? (
                             <form
-                            onSubmit={async (e) => {
-                                e.preventDefault();
-                                try {
-                                    // Convert selectedClient to a plain object and remove undefined values
-                                    const clientData = Object.fromEntries(
-                                        Object.entries(selectedClient).filter(([_, value]) => value !== undefined)
-                                    );
-                            
-                                    // Update the client in Firestore
-                                    const clientRef = doc(db, "clients", selectedClient.id);
-                                    await updateDoc(clientRef, clientData);
-                            
-                                    // Refresh the clients list
-                                    const clientsSnapshot = await getDocs(collection(db, "clients"));
-                                    const clientsData = clientsSnapshot.docs.map((doc) => ({
-                                        id: doc.id,
-                                        ...doc.data(),
-                                    })) as Client[];
-                                    setClients(clientsData);
-                            
-                                    // Exit edit mode
-                                    setIsEditMode(false);
-                                    alert("Client updated successfully!");
-                                } catch (error) {
-                                    console.error("Error updating client:", error);
-                                    alert("Failed to update client.");
-                                }
-                            }}
+                                onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    try {
+                                        // Convert selectedClient to a plain object and remove undefined values
+                                        const clientData = Object.fromEntries(
+                                            Object.entries(selectedClient).filter(
+                                                ([_, value]) => value !== undefined
+                                            )
+                                        );
+
+                                        // Update the client in Firestore
+                                        const clientRef = doc(db, 'clients', selectedClient.id);
+                                        await updateDoc(clientRef, clientData);
+
+                                        // Refresh the clients list
+                                        const clientsSnapshot = await getDocs(
+                                            collection(db, 'clients')
+                                        );
+                                        const clientsData = clientsSnapshot.docs.map((doc) => ({
+                                            id: doc.id,
+                                            ...doc.data(),
+                                        })) as Client[];
+                                        setClients(clientsData);
+
+                                        // Exit edit mode
+                                        setIsEditMode(false);
+                                        alert('Client updated successfully!');
+                                    } catch (error) {
+                                        console.error('Error updating client:', error);
+                                        alert('Failed to update client.');
+                                    }
+                                }}
                             >
                                 <div className="grid grid-cols-2 gap-4">
                                     {/* Editable Fields */}
@@ -887,7 +935,10 @@ const Clients = () => {
                                             type="text"
                                             value={selectedClient.name}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, name: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    name: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -898,7 +949,10 @@ const Clients = () => {
                                             type="email"
                                             value={selectedClient.email}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, email: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    email: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -909,7 +963,10 @@ const Clients = () => {
                                             type="tel"
                                             value={selectedClient.phone}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, phone: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    phone: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -920,7 +977,10 @@ const Clients = () => {
                                             type="text"
                                             value={selectedClient.address}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, address: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    address: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -931,7 +991,10 @@ const Clients = () => {
                                             type="text"
                                             value={selectedClient.assignedWorkerId}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, assignedWorkerId: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    assignedWorkerId: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -941,14 +1004,22 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.cleaningType}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, cleaningType: e.target.value };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    cleaningType: e.target.value,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
                                             <option value="Light Cleaning">Light Cleaning</option>
-                                            <option value="Standard Cleaning">Standard Cleaning</option>
+                                            <option value="Standard Cleaning">
+                                                Standard Cleaning
+                                            </option>
                                             <option value="Deep Cleaning">Deep Cleaning</option>
                                         </select>
                                     </div>
@@ -957,7 +1028,10 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.cleaningFrequency}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, cleaningFrequency: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    cleaningFrequency: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
@@ -971,18 +1045,32 @@ const Clients = () => {
                                         <label>Selected Services</label>
                                         <div className="flex flex-col gap-2">
                                             {availableServices.map((service) => (
-                                                <label key={service} className="flex items-center gap-2">
+                                                <label
+                                                    key={service}
+                                                    className="flex items-center gap-2"
+                                                >
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedClient.selectedServices.includes(service)}
+                                                        checked={selectedClient.selectedServices.includes(
+                                                            service
+                                                        )}
                                                         onChange={(e) => {
                                                             const updatedServices = e.target.checked
                                                                 ? [...selectedClient.selectedServices, service] // Add service if checked
-                                                                : selectedClient.selectedServices.filter((s) => s !== service); // Remove service if unchecked
+                                                                : selectedClient.selectedServices.filter(
+                                                                    (s) => s !== service
+                                                                ); // Remove service if unchecked
 
-                                                            const updatedClient = { ...selectedClient, selectedServices: updatedServices };
-                                                            const updatedCost = recalculateCost(updatedClient);
-                                                            setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                            const updatedClient = {
+                                                                ...selectedClient,
+                                                                selectedServices: updatedServices,
+                                                            };
+                                                            const updatedCost =
+                                                                recalculateCost(updatedClient);
+                                                            setSelectedClient({
+                                                                ...updatedClient,
+                                                                cost: updatedCost,
+                                                            });
                                                         }}
                                                         className="border border-gray-300 rounded"
                                                     />
@@ -996,9 +1084,15 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.propertyType}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, propertyType: e.target.value };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    propertyType: e.target.value,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
@@ -1013,7 +1107,10 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.superficialArea}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, superficialArea: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    superficialArea: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
@@ -1031,9 +1128,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfKitchens}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfKitchens: e.target.value };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfKitchens: e.target.value,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1044,9 +1147,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfRooms}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfRooms: e.target.value };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfRooms: e.target.value,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1057,9 +1166,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfLivingRooms}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfLivingRooms: e.target.value };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfLivingRooms: e.target.value,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1070,9 +1185,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfBathrooms}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfBathrooms: e.target.value };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfBathrooms: e.target.value,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1083,9 +1204,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfWalls}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfWalls: parseInt(e.target.value) || 0 };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfWalls: parseInt(e.target.value) || 0,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1096,9 +1223,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfWindows}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfWindows: parseInt(e.target.value) || 0 };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfWindows: parseInt(e.target.value) || 0,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1109,9 +1242,15 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.numberOfBalcony}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, numberOfBalcony: parseInt(e.target.value) || 0 };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    numberOfBalcony: parseInt(e.target.value) || 0,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1122,14 +1261,19 @@ const Clients = () => {
                                             type="number"
                                             value={selectedClient.laundryLoads}
                                             onChange={(e) => {
-                                                const updatedClient = { ...selectedClient, laundryLoads: parseInt(e.target.value) || 0 };
+                                                const updatedClient = {
+                                                    ...selectedClient,
+                                                    laundryLoads: parseInt(e.target.value) || 0,
+                                                };
                                                 const updatedCost = recalculateCost(updatedClient);
-                                                setSelectedClient({ ...updatedClient, cost: updatedCost });
+                                                setSelectedClient({
+                                                    ...updatedClient,
+                                                    cost: updatedCost,
+                                                });
                                             }}
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
                                     </div>
-
 
                                     <div>
                                         <label>Created At</label>
@@ -1137,7 +1281,10 @@ const Clients = () => {
                                             type="date"
                                             value={selectedClient.createdAt}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, createdAt: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    createdAt: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1148,7 +1295,10 @@ const Clients = () => {
                                             type="date"
                                             value={selectedClient.deadline}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, deadline: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    deadline: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1158,7 +1308,10 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.preferredDay}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, preferredDay: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    preferredDay: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
@@ -1176,7 +1329,10 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.priority}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, priority: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    priority: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
@@ -1190,7 +1346,10 @@ const Clients = () => {
                                         <select
                                             value={selectedClient.status}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, status: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    status: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
@@ -1214,7 +1373,10 @@ const Clients = () => {
                                             type="text"
                                             value={selectedClient.title}
                                             onChange={(e) =>
-                                                setSelectedClient({ ...selectedClient, title: e.target.value })
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    title: e.target.value,
+                                                })
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
@@ -1231,33 +1393,100 @@ const Clients = () => {
                             <div className="grid grid-cols-2 gap-4">
                                 {/* Display Client Details (Read-Only) */}
                                 <div>
-                                    <p><strong>Name:</strong> {selectedClient.name}</p>
-                                    <p><strong>Email:</strong> {selectedClient.email}</p>
-                                    <p><strong>Phone:</strong> {selectedClient.phone}</p>
-                                    <p><strong>Address:</strong> {selectedClient.address}</p>
-                                    <p><strong>Assigned Worker:</strong> {workers.find((worker) => worker.id === selectedClient.assignedWorkerId)?.name || "N/A"}</p>
-                                    <p><strong>Cleaning Type:</strong> {selectedClient.cleaningType}</p>
-                                    <p><strong>Cleaning Frequency:</strong> {selectedClient.cleaningFrequency}</p>
-                                    <p><strong>Selected Services:</strong> {selectedClient.selectedServices.join(", ")}</p>
+                                    <p>
+                                        <strong>Name:</strong> {selectedClient.name}
+                                    </p>
+                                    <p>
+                                        <strong>Email:</strong> {selectedClient.email}
+                                    </p>
+                                    <p>
+                                        <strong>Phone:</strong> {selectedClient.phone}
+                                    </p>
+                                    <p>
+                                        <strong>Address:</strong> {selectedClient.address}
+                                    </p>
+                                    <p>
+                                        <strong>Assigned Worker:</strong>{' '}
+                                        {workers.find(
+                                            (worker) => worker.id === selectedClient.assignedWorkerId
+                                        )?.name || 'N/A'}
+                                    </p>
+                                    <p>
+                                        <strong>Cleaning Type:</strong>{' '}
+                                        {selectedClient.cleaningType}
+                                    </p>
+                                    <p>
+                                        <strong>Cleaning Frequency:</strong>{' '}
+                                        {selectedClient.cleaningFrequency}
+                                    </p>
+                                    <p>
+                                        <strong>Selected Services:</strong>{' '}
+                                        {selectedClient.selectedServices.join(', ')}
+                                    </p>
                                 </div>
                                 <div>
-                                    <p><strong>Property Type:</strong> {selectedClient.propertyType}</p>
-                                    <p><strong>Superficial Area:</strong> {selectedClient.superficialArea}</p>
-                                    <p><strong>Number of Kitchens:</strong> {selectedClient.numberOfKitchens}</p>
-                                    <p><strong>Number of Rooms:</strong> {selectedClient.numberOfRooms}</p>
-                                    <p><strong>Number of Living Rooms:</strong> {selectedClient.numberOfLivingRooms}</p>
-                                    <p><strong>Number of Bathrooms:</strong> {selectedClient.numberOfBathrooms}</p>
-                                    <p><strong>Number of Walls:</strong> {selectedClient.numberOfWalls}</p>
-                                    <p><strong>Number of Windows:</strong> {selectedClient.numberOfWindows}</p>
-                                    <p><strong>Number of Balcony/Patio:</strong> {selectedClient.numberOfBalcony}</p>
-                                    <p><strong>Laundry Loads:</strong> {selectedClient.laundryLoads}</p>
-                                    <p><strong>Cost:</strong> {selectedClient.cost}</p>
-                                    <p><strong>Created At:</strong> {selectedClient.createdAt}</p>
-                                    <p><strong>Deadline:</strong> {selectedClient.deadline}</p>
-                                    <p><strong>Preferred Day:</strong> {selectedClient.preferredDay}</p>
-                                    <p><strong>Priority:</strong> {selectedClient.priority}</p>
-                                    <p><strong>Status:</strong> {selectedClient.status}</p>
-                                    <p><strong>Title:</strong> {selectedClient.title}</p>
+                                    <p>
+                                        <strong>Property Type:</strong>{' '}
+                                        {selectedClient.propertyType}
+                                    </p>
+                                    <p>
+                                        <strong>Superficial Area:</strong>{' '}
+                                        {selectedClient.superficialArea}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Kitchens:</strong>{' '}
+                                        {selectedClient.numberOfKitchens}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Rooms:</strong>{' '}
+                                        {selectedClient.numberOfRooms}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Living Rooms:</strong>{' '}
+                                        {selectedClient.numberOfLivingRooms}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Bathrooms:</strong>{' '}
+                                        {selectedClient.numberOfBathrooms}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Walls:</strong>{' '}
+                                        {selectedClient.numberOfWalls}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Windows:</strong>{' '}
+                                        {selectedClient.numberOfWindows}
+                                    </p>
+                                    <p>
+                                        <strong>Number of Balcony/Patio:</strong>{' '}
+                                        {selectedClient.numberOfBalcony}
+                                    </p>
+                                    <p>
+                                        <strong>Laundry Loads:</strong>{' '}
+                                        {selectedClient.laundryLoads}
+                                    </p>
+                                    <p>
+                                        <strong>Cost:</strong> {selectedClient.cost}
+                                    </p>
+                                    <p>
+                                        <strong>Created At:</strong> {selectedClient.createdAt}
+                                    </p>
+                                    <p>
+                                        <strong>Deadline:</strong> {selectedClient.deadline}
+                                    </p>
+                                    <p>
+                                        <strong>Preferred Day:</strong>{' '}
+                                        {selectedClient.preferredDay}
+                                    </p>
+                                    <p>
+                                        <strong>Priority:</strong> {selectedClient.priority}
+                                    </p>
+                                    <p>
+                                        <strong>Status:</strong> {selectedClient.status}
+                                    </p>
+                                    <p>
+                                        <strong>Title:</strong> {selectedClient.title}
+                                    </p>
                                 </div>
                             </div>
                         )}
