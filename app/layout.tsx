@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
+import CookieConsentBanner from "@/compononts/CookieConsentBanner"; // Import the cookie consent banner
 
 // Font imports
 const geistSans = Geist({
@@ -116,6 +117,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        {/* Add the cookie consent banner */}
+        <CookieConsentBanner />
       </body>
     </html>
   );

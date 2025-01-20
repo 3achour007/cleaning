@@ -86,6 +86,16 @@ export default function Navbar() {
                             Contact
                         </a>
                     </li>
+                    {/* Add the Cookie Policy Link */}
+                    <li>
+                        <Link
+                            href="/cookie-policy"
+                            className="block py-2 sm:py-0 hover:underline"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Cookie Policy
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </header>

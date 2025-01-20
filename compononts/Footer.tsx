@@ -27,7 +27,7 @@ export default function Footer() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
               <p className="text-gray-300">
-                Phone: +1 (438) 408-2316<br />
+                Phone: +1 (438) 814-5432<br />
                 Email: info@ecofriendlyclean.ca<br />
 
               </p>
