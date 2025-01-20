@@ -850,29 +850,34 @@ const Clients = () => {
                         {/* Client Details or Edit Form */}
                         {isEditMode ? (
                             <form
-                                onSubmit={async (e) => {
-                                    e.preventDefault();
-                                    try {
-                                        // Update the client in Firestore
-                                        const clientRef = doc(db, "clients", selectedClient.id);
-                                        await updateDoc(clientRef, selectedClient);
-
-                                        // Refresh the clients list
-                                        const clientsSnapshot = await getDocs(collection(db, "clients"));
-                                        const clientsData = clientsSnapshot.docs.map((doc) => ({
-                                            id: doc.id,
-                                            ...doc.data(),
-                                        })) as Client[];
-                                        setClients(clientsData);
-
-                                        // Exit edit mode
-                                        setIsEditMode(false);
-                                        alert("Client updated successfully!");
-                                    } catch (error) {
-                                        console.error("Error updating client:", error);
-                                        alert("Failed to update client.");
-                                    }
-                                }}
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                try {
+                                    // Convert selectedClient to a plain object and remove undefined values
+                                    const clientData = Object.fromEntries(
+                                        Object.entries(selectedClient).filter(([_, value]) => value !== undefined)
+                                    );
+                            
+                                    // Update the client in Firestore
+                                    const clientRef = doc(db, "clients", selectedClient.id);
+                                    await updateDoc(clientRef, clientData);
+                            
+                                    // Refresh the clients list
+                                    const clientsSnapshot = await getDocs(collection(db, "clients"));
+                                    const clientsData = clientsSnapshot.docs.map((doc) => ({
+                                        id: doc.id,
+                                        ...doc.data(),
+                                    })) as Client[];
+                                    setClients(clientsData);
+                            
+                                    // Exit edit mode
+                                    setIsEditMode(false);
+                                    alert("Client updated successfully!");
+                                } catch (error) {
+                                    console.error("Error updating client:", error);
+                                    alert("Failed to update client.");
+                                }
+                            }}
                             >
                                 <div className="grid grid-cols-2 gap-4">
                                     {/* Editable Fields */}
