@@ -43,6 +43,7 @@ interface Client {
     priority: string;
     status: string;
     title: string;
+    reference: string;
 }
 
 const formatDateTime = (dateString: string) => {
@@ -62,6 +63,13 @@ interface Worker {
     // Add other worker properties as needed
 }
 
+const references = [
+    'Google',
+    'Facebook',
+    'Instagram',
+    'Client',
+    'Other',
+]
 const superficialAreaOptions = [
     '500-1000 ft²',
     '1000-1500 ft²',
@@ -116,6 +124,7 @@ const Clients = () => {
         priority: '',
         status: '',
         title: '',
+        reference: '',
     });
     const router = useRouter();
 
@@ -392,6 +401,7 @@ const Clients = () => {
                 priority: '',
                 status: '',
                 title: '',
+                reference: '',
             });
 
             // Close the form
@@ -497,6 +507,21 @@ const Clients = () => {
                         </div>
                         <div className="flex flex-col w-full">
                             <select
+                                name="reference"
+                                value={newClient.reference}
+                                onChange={handleInputChange}
+                                className="p-2 border border-gray-300 rounded-lg"
+                            >
+                                <option value="">Select Reference</option>
+                                <option value="Google">Google</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Client">Client</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div className="flex flex-col w-full">
+                            <select
                                 name="cleaningFrequency"
                                 value={newClient.cleaningFrequency}
                                 onChange={handleInputChange}
@@ -589,6 +614,7 @@ const Clients = () => {
                                 className="p-2 border border-gray-300 rounded-lg"
                             >
                                 <option value="">Select Status</option>
+                                <option value="Not Sold">Not Sold</option>
                                 <option value="Pending">Pending</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Completed">Completed</option>
@@ -825,10 +851,11 @@ const Clients = () => {
                     <thead>
                         <tr className="bg-gray-100">
                             <th className="py-2 px-4 border-b text-center">Name</th>
-                            <th className="py-2 px-4 border-b text-center">Address</th>
+                            <th className="py-2 px-4 border-b text-center">Status</th>
                             <th className="py-2 px-4 border-b text-center">Assigned Worker</th>
                             <th className="py-2 px-4 border-b text-center">Cost</th>
                             <th className="py-2 px-4 border-b text-center">Created At</th>
+                            <th className="py-2 px-4 border-b text-center">Frequency</th>
                             <th className="py-2 px-4 border-b text-center">Actions</th>
                         </tr>
                     </thead>
@@ -840,13 +867,16 @@ const Clients = () => {
                                 onClick={() => setSelectedClient(client)} // Add this line
                             >
                                 <td className="py-2 px-4 border-b text-center">{client.name}</td>
-                                <td className="py-2 px-4 border-b text-center">{client.address}</td>
+                                <td className="py-2 px-4 border-b text-center">{client.status}</td>
                                 <td className="py-2 px-4 border-b text-center">
                                     {workers.find((worker) => worker.id === client.assignedWorkerId)?.name || 'N/A'}
                                 </td>
                                 <td className="py-2 px-4 border-b text-center">{client.cost}</td>
                                 <td className="py-2 px-4 border-b text-center">
                                     {formatDateTime(client.createdAt)}
+                                </td>
+                                <td className="py-2 px-4 border-b text-center">
+                                    {client.cleaningFrequency}
                                 </td>
                                 <td className="py-2 px-4 border-b text-center">
                                     <button
@@ -984,6 +1014,25 @@ const Clients = () => {
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         />
+                                    </div>
+                                    <div>
+                                        <label>Reference</label>
+                                        <select
+                                            value={selectedClient.reference}
+                                            onChange={(e) =>
+                                                setSelectedClient({
+                                                    ...selectedClient,
+                                                    reference: e.target.value,
+                                                })
+                                            }
+                                            className="p-2 border border-gray-300 rounded-lg w-full"
+                                        >
+                                            <option value="Google">Google</option>
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Client">Client</option>
+                                            <option value="Other">Other</option>
+                                        </select>
                                     </div>
                                     <div>
                                         <label>Assigned Worker ID</label>
@@ -1353,6 +1402,7 @@ const Clients = () => {
                                             }
                                             className="p-2 border border-gray-300 rounded-lg w-full"
                                         >
+                                            <option value="Not Sold">Not Sold</option>
                                             <option value="Pending">Pending</option>
                                             <option value="In Progress">In Progress</option>
                                             <option value="Completed">Completed</option>
@@ -1404,6 +1454,9 @@ const Clients = () => {
                                     </p>
                                     <p>
                                         <strong>Address:</strong> {selectedClient.address}
+                                    </p>
+                                    <p>
+                                        <strong>Reference:</strong> {selectedClient.reference}
                                     </p>
                                     <p>
                                         <strong>Assigned Worker:</strong>{' '}
@@ -1466,9 +1519,6 @@ const Clients = () => {
                                         {selectedClient.laundryLoads}
                                     </p>
                                     <p>
-                                        <strong>Cost:</strong> {selectedClient.cost}
-                                    </p>
-                                    <p>
                                         <strong>Created At:</strong> {selectedClient.createdAt}
                                     </p>
                                     <p>
@@ -1486,6 +1536,9 @@ const Clients = () => {
                                     </p>
                                     <p>
                                         <strong>Title:</strong> {selectedClient.title}
+                                    </p>
+                                    <p>
+                                        <strong>Cost:</strong> {selectedClient.cost}
                                     </p>
                                 </div>
                             </div>

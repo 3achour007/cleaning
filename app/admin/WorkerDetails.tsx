@@ -89,32 +89,6 @@ export default function WorkerDetails({ worker }: { worker: Worker }) {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-        Worker Details
-      </h2>
-
-      {/* Worker Details */}
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold text-gray-700 mb-4">
-          {worker.name}
-        </h3>
-        <p className="text-gray-600">Email: {worker.email}</p>
-        <p className="text-gray-600">Phone: {worker.phone}</p>
-        <p className="text-gray-600">Address: {worker.address}</p>
-        <p className="text-gray-600">
-          Status:{' '}
-          <span
-            className={`px-2 py-1 text-xs font-semibold rounded-full ${
-              worker.status === 'Active'
-                ? 'bg-green-100 text-green-800'
-                : 'bg-red-100 text-red-800'
-            }`}
-          >
-            {worker.status}
-          </span>
-        </p>
-      </div>
-
       {/* Assigned Clients */}
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">
         Assigned Clients
