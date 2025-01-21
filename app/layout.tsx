@@ -109,7 +109,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
 
         {/* Favicon Links */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/image/favicon.ico" />
         <link
           rel="icon"
           type="image/png"
